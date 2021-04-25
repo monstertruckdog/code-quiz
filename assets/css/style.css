@@ -63,10 +63,14 @@ li {
 }
 
 /* #time-span */
-#clock::before {
+#time-text h4:first-of-type {
     float: right;
-    content: "Time:  "
+    /* content: "Time:  " */
 
+}
+
+#time-countdown {
+    float: right;
 }
 
 #welcome {

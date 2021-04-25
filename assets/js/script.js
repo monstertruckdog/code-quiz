@@ -1,5 +1,5 @@
 var head = document.querySelector(".head")
-var timer = document.querySelector("#clock");
+var timer = document.querySelector("#time-countdown");
 var mainSection = document.querySelector(".primary-content-container");
 var welcome = document.querySelector("#welcome");
 var startBttn = document.querySelector("#start-bttn");
@@ -252,8 +252,14 @@ function quizQuestionConstructor(event) {
             }
     });
     */
+   //for (index = 0; index < quizDefinitions.length; index++) {
+       //quizText(index);
+       //quizEval(index);
+   //}
    quizEval(0);
 
+   // quizText(1);
+   // quizEval(1);
 
 } // this is the closing for the quizQuestionConstructor function
 
