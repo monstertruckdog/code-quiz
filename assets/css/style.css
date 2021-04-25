@@ -42,14 +42,12 @@ li {
     text-decoration: none;
 }
 
-/* .container-primary {
+.container-primary {
     color: var(--nearly_b);
     margin-left: 2%;
     margin-right: 2%;
-    border-bottom: solid 2px;
-    border-bottom-color: var(--nearly_b);
     padding-bottom: 8px;
-} */
+}
 
 .question-eval-container {
     color: var(--nearly_b);
@@ -57,15 +55,18 @@ li {
     margin-right: 2%;
     border-top: solid 2px;
     border-top-color: var(--nearly_b);
-    padding-top: 8px;
+    margin-top: 32px;
 }
 
 #highscore {
     float: left;
 }
 
-#clock {
+/* #time-span */
+#clock::before {
     float: right;
+    content: "Time:  "
+
 }
 
 #welcome {
