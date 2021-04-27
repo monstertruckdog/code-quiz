@@ -1,5 +1,7 @@
-var head = document.querySelector(".head")
-var timer = document.querySelector("#time-countdown");
+var head = document.querySelector(".head");
+var headNav = document.querySelector("#head-nav");
+var highScore = document.querySelector("#highscore")
+var timer = document.querySelector("#main-timer");
 var mainSection = document.querySelector(".primary-content-container");
 var welcome = document.querySelector("#welcome");
 var startBttn = document.querySelector("#start-bttn");
@@ -22,7 +24,8 @@ questionEvalContainer.setAttribute("class", "question-eval-container");
 questionEval.setAttribute("class", "question-eval");
 
 var timerCount = 75
-head.children[0].children[0].appendChild(timer);
+head.appendChild(headNav);
+headNav.children[0].appendChild(timer);
 timer.textContent = timerCount
 
 /*
@@ -398,7 +401,7 @@ function quizEval(index) {
             questionEval.textContent = "INCORRECT";
             console.log(`TEST | else portion of the if...then statement has been executed`)
             if (timerCount > 0) {
-                timerCount = timerCount - 10
+                timerCount -= 10
             } else if (timerCount <= 0) {
                 timerCount.textContent = "0"
             };

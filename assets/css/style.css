@@ -62,16 +62,28 @@ li {
     float: left;
 }
 
-/* #time-span */
+#head-nav ul {
+    list-style: none;
+}
+
+#head-nav li {
+    display:  block;
+    float: right;
+    margin-left: 4px;
+}
+
+/* #time-span 
 #time-text {
     float: right;
-    /* content: "Time:  " */
+    /* content: "Time:  "
 
-}
+} */
 
-#time-countdown {
+/*
+#main-timer {
     float: right;
 }
+*/
 
 #welcome {
     text-align: center;
