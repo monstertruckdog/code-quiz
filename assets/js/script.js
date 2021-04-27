@@ -58,6 +58,7 @@ var quizQuestionNum = 0
 
 startBttn.addEventListener("click", function() {
     welcome.style.display = "none";
+    mainTimer();
     quizQuestionConstructor();
     // quizEval(quizQuestionNum);
     // for (var i = 0; i < quizDefinitions.length; i++) {
@@ -355,7 +356,7 @@ function quizText(index) {
 
 function evalDisplayClock() {
     var evalDisplayInterval = setInterval( function() {
-        evalDisplayTime--
+        evalDisplayTime--;
         console.log(`TEST | evalDisplayTimer clock is running!`)
 
         if (evalDisplayTime === 0) {
@@ -363,6 +364,20 @@ function evalDisplayClock() {
             questionEval.style.display = "none";
             console.log(`TEST | evalDisplayTimer clock has run out!`)
         }
+    }, 1000);
+}
+
+function mainTimer() {
+    var mainTimerInterval = setInterval( function() {
+        if (timerCount > 0) {
+            timer.textContent = timerCount;
+            timerCount--;
+            console.log(`TEST | mainTimer clock is running!`);
+        } else if (timerCount <= 0) {
+            clearInterval(mainTimerInterval);
+            timer.textContent = "0";
+            console.log(`TEST | mainTimer clock has run out!`)
+        };
     }, 1000);
 }
 
@@ -382,10 +397,12 @@ function quizEval(index) {
         } else {
             questionEval.textContent = "INCORRECT";
             console.log(`TEST | else portion of the if...then statement has been executed`)
-            timerCount = timerCount - 10;
-            timer.textContent = timerCount;
-            // quizQuestionNum++
-        }
+            if (timerCount > 0) {
+                timerCount = timerCount - 10
+            } else if (timerCount <= 0) {
+                timerCount.textContent = "0"
+            };
+        };
         evalDisplayClock();
         quizQuestionNum++;
         console.log(`TEST | quizQuestionNum:  ${quizQuestionNum}`);
