@@ -63,7 +63,7 @@ li {
 }
 
 /* #time-span */
-#time-text h4:first-of-type {
+#time-text {
     float: right;
     /* content: "Time:  " */
 
