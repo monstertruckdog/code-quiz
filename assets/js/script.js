@@ -1,7 +1,7 @@
 // Header and Navigation
 var head = document.querySelector(".head");
 var headNav = document.querySelector("#head-nav");
-var highScore = document.querySelector("#highscore")
+var highScoreLink = document.querySelector("#highscore")
 var timer = document.querySelector("#main-timer");
 
 // Main Body:  Intro
@@ -32,6 +32,9 @@ var gameOverScore = document.createElement("h5");
 var gameOverScoreEntry = document.createElement("input");
 var saveInitialsBttn = document.createElement("button");
 var saveInitialsText = document.createElement("p");
+
+// Main Body:  High Scores
+
 
 // Set Attributes
 // Main Body:  Quiz Questions
@@ -286,7 +289,7 @@ function quizQuestionConstructor(event) {
     quizQuestionListItemCBttn.textContent = quizDefinitions[0]["qC"];
     quizQuestionListItemDBttn.textContent = quizDefinitions[0]["qD"];
     */
-   quizText(quizQuestionNum);
+
 
    /*
     quizQuestionListItemABttn.addEventListener("click", function() {
@@ -330,6 +333,8 @@ function quizQuestionConstructor(event) {
        //quizText(index);
        //quizEval(index);
    //}
+
+    quizText(quizQuestionNum);
     quizEval(quizQuestionNum);
 
 
@@ -381,70 +386,82 @@ function quizText(index) {
     containerPrimary.appendChild(questionEvalContainer);
     questionEvalContainer.appendChild(questionEval);
 
-    quizQuestionHead.textContent = quizDefinitions[index]["quizQuestion"];
-    quizQuestionListItemABttn.textContent = quizDefinitions[index]["qA"];
-    quizQuestionListItemBBttn.textContent = quizDefinitions[index]["qB"];
-    quizQuestionListItemCBttn.textContent = quizDefinitions[index]["qC"];
-    quizQuestionListItemDBttn.textContent = quizDefinitions[index]["qD"];
+    if (quizDefinitions[index]) {
+        console.log(index + quizDefinitions[index]["quizQuestion"])
+        quizQuestionHead.textContent = quizDefinitions[index]["quizQuestion"];
+        quizQuestionListItemABttn.textContent = quizDefinitions[index]["qA"];
+        quizQuestionListItemBBttn.textContent = quizDefinitions[index]["qB"];
+        quizQuestionListItemCBttn.textContent = quizDefinitions[index]["qC"];
+        quizQuestionListItemDBttn.textContent = quizDefinitions[index]["qD"];
+    }
+
+    
 };
 
 
 function evalDisplayClock() {
     var evalDisplayInterval = setInterval( function() {
         evalDisplayTime--;
-        console.log(`TEST | evalDisplayTimer clock is running!`)
+        // console.log(`TEST | evalDisplayTimer clock is running!`)
 
         if (evalDisplayTime === 0) {
             clearInterval(evalDisplayInterval);
-            questionEval.style.display = "none";
-            console.log(`TEST | evalDisplayTimer clock has run out!`)
+            questionEval.textContent = "";
+            // console.log(`TEST | evalDisplayTimer clock has run out!`)
         }
     }, 1000);
 }
 
 function mainTimer() {
     mainTimerInterval = setInterval( function() {
+
         if (timerCount > 0) {
             console.log(`TEST | mainTimer Countdown:  ${timerCount}`)
             timer.textContent = timerCount;
             timerCount--;
-            console.log(`TEST | mainTimer clock is running!`);
+            // console.log(`TEST | mainTimer clock is running!`);
         } else if (timerCount <= 0) {
             clearInterval(mainTimerInterval);
             timer.textContent = "0";
-            console.log(`TEST | mainTimer clock has run out!`);
+            // console.log(`TEST | mainTimer clock has run out!`);
         };
     }, 1000);
 };
 
 function quizEval(index) {
     // quizText(quizQuestionNum);
-    console.log(`TEST | Function quizText has run`);
+    // console.log(`TEST | Function quizText has run`);
     // questionEval.display = "none";
     // console.log(`TEST | questionEval.display = 'none' attempt | 2`)
     evalDisplayTime = 2;
     quizQuestionListItemABttn.addEventListener("click", function() {
-        console.log(`TEST | Button A has been clicked`)
-        console.log(`TEST | THE ANSWSER IS:  ${quizDefinitions[index]["answer"]}`)
-        if (quizQuestionListItemABttn === quizDefinitions[index]["answer"]) {
+        // console.log('quiz def index:  ' + index + quizDefinitions[index])
+        // console.log(`TEST | THE ANSWSER IS:  ${quizDefinitions[index]["answer"]}`)
+        
+        if (quizDefinitions[index] && quizQuestionListItemABttn === quizDefinitions[index]["answer"]) {
             questionEval.textContent = "CORRECT";
-            console.log(`TEST | if portion of if...then statement has been executed`)
+            // console.log(`TEST | if portion of if...then statement has been executed`)
             // quizQuestionNum++
         } else {
             questionEval.textContent = "INCORRECT";
-            console.log(`TEST | else portion of the if...then statement has been executed`)
+            console.log(timerCount, "timer count")
             if (timerCount > 0) {
+                console.log("MADE IT TO HERE YES")
                 timerCount -= 10
             } else if (timerCount <= 0) {
                 timerCount.textContent = "0"
             };
         };
         evalDisplayClock();
-        quizQuestionNum++;
+        if (quizDefinitions[index + 1]) {
+            quizQuestionNum++;
+        };
+        // quizQuestionNum++;
         console.log(`TEST | quizQuestionNum:  ${quizQuestionNum}`);
         if (quizQuestionNum <= quizDefinitions.length) {
-            console.log(`TEST | quizQuestionConstructor is firing`)
-            quizQuestionConstructor();
+            // console.log(`TEST | quizQuestionConstructor is firing`)
+            quizText(quizQuestionNum);
+
         } else if (quizQuestionNum > quizDefinitions.length) {
             console.log(`TEST | gameOver is firing`);
             clearInterval(mainTimerInterval);
@@ -469,6 +486,18 @@ function gameOver() {
     saveInitialsBttn.textContent = "Submit"
     gameOverScreen.appendChild(saveInitialsText);
     saveInitialsText.textContent = "Enter player's initials"
+}
 
+function highScore() {
 
 }
+
+
+// TODO
+//
+// 1.  Enhancement - Make High Score page
+// 2.  Enhancement - Configure local storage
+// 3.  x Defect - timerCount reduces by more than 10 after the first incorrect answer
+// 4.  x Defect - "Final Score" displays incorrect value
+// 5.  x Defecet - "CORRECT"/"INCORRECT" evaluation stopped displaying after the first question
+// 6.  x Defect - ERROR:  "Uncaught TypeError: quizDefinitions[index] is undefined" (line 384) ?  What?  How is that possible?
