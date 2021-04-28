@@ -1,10 +1,15 @@
+// Header and Navigation
 var head = document.querySelector(".head");
 var headNav = document.querySelector("#head-nav");
 var highScore = document.querySelector("#highscore")
 var timer = document.querySelector("#main-timer");
-var mainSection = document.querySelector(".primary-content-container");
+
+// Main Body:  Intro
 var welcome = document.querySelector("#welcome");
 var startBttn = document.querySelector("#start-bttn");
+
+// Main Body:  Quiz Questions
+var mainSection = document.querySelector(".primary-content-container");
 var containerPrimary = document.createElement("div");
 var quizQuestionHead = document.createElement("h3");
 var quizQuestionList = document.createElement("ul");
@@ -19,9 +24,34 @@ var quizQuestionListItemDBttn = document.createElement("button");
 var questionEvalContainer = document.createElement("div");
 var questionEval = document.createElement("h2");
 
+// Main Body:  Game Over
+var gameOverScreenContainer = document.createElement("div");
+var gameOverScreen = document.createElement("div");
+var gameOverTitle = document.createElement("h3");
+var gameOverScore = document.createElement("h5");
+var gameOverScoreEntry = document.createElement("input");
+var saveInitialsBttn = document.createElement("button");
+var saveInitialsText = document.createElement("p");
+
+// Set Attributes
+// Main Body:  Quiz Questions
 containerPrimary.setAttribute("class", "container-primary");
 questionEvalContainer.setAttribute("class", "question-eval-container");
 questionEval.setAttribute("class", "question-eval");
+
+// Main Body:  Game Over
+gameOverScreenContainer.setAttribute("class", "game-over-screen-container");
+gameOverScreen.setAttribute("class", "game-over-screen");
+gameOverTitle.setAttribute("id", "game-over-title");
+gameOverScore.setAttribute("id", "game-over-score");
+gameOverScoreEntry.setAttribute("type", "text");
+gameOverScoreEntry.setAttribute("id", "game-over-initials");
+gameOverScoreEntry.setAttribute("text-content", "Enter player initials:  ");
+gameOverScoreEntry.setAttribute("max-length", "4");
+gameOverScoreEntry.setAttribute("width", "8px");
+saveInitialsBttn.setAttribute("class", "save-initials-bttn");
+saveInitialsBttn.setAttribute("display", "block");
+saveInitialsBttn.setAttribute("style", "display: block");
 
 var timerCount = 75
 head.appendChild(headNav);
@@ -57,7 +87,9 @@ var quizDefinitions = [
 ];
 */
 
+var quizDefinitions
 var quizQuestionNum = 0
+var mainTimer
 
 startBttn.addEventListener("click", function() {
     welcome.style.display = "none";
@@ -371,18 +403,19 @@ function evalDisplayClock() {
 }
 
 function mainTimer() {
-    var mainTimerInterval = setInterval( function() {
+    mainTimerInterval = setInterval( function() {
         if (timerCount > 0) {
+            console.log(`TEST | mainTimer Countdown:  ${timerCount}`)
             timer.textContent = timerCount;
             timerCount--;
             console.log(`TEST | mainTimer clock is running!`);
         } else if (timerCount <= 0) {
             clearInterval(mainTimerInterval);
             timer.textContent = "0";
-            console.log(`TEST | mainTimer clock has run out!`)
+            console.log(`TEST | mainTimer clock has run out!`);
         };
     }, 1000);
-}
+};
 
 function quizEval(index) {
     // quizText(quizQuestionNum);
@@ -409,28 +442,33 @@ function quizEval(index) {
         evalDisplayClock();
         quizQuestionNum++;
         console.log(`TEST | quizQuestionNum:  ${quizQuestionNum}`);
-        quizQuestionConstructor();
+        if (quizQuestionNum <= quizDefinitions.length) {
+            console.log(`TEST | quizQuestionConstructor is firing`)
+            quizQuestionConstructor();
+        } else if (quizQuestionNum > quizDefinitions.length) {
+            console.log(`TEST | gameOver is firing`);
+            clearInterval(mainTimerInterval);
+            gameOver();
+        }
+        
     })
 };
 
-/*
-function quizEval(index) {
-    quizText(quizQuestionNum);
-    for (var i = 0; i < quizDefinitions.length; i++) {
-        quizQuestionListItemABttn.addEventListener("click", function() {
-            console.log(`TEST | Button A has been clicked`)
-            console.log(`TEST | THE ANSWSER IS:  ${quizDefinitions[index]["answer"]}`)
-            if (quizQuestionListItemABttn === quizDefinitions[index]["answer"]) {
-                questionEval.textContent = "CORRECT";
-                // quizQuestionNum++
-            } else {
-                questionEval.textContent = "INCORRECT";
-                timerCount = timerCount - 10;
-                timer.textContent = timerCount;
-                // quizQuestionNum++
-            }
-            quizQuestionNum++
-        })
-    }
+function gameOver() {
+    welcome.style.display = "none";
+    questionEval.style.display = "none";
+    containerPrimary.style.display = "none";
+    mainSection.appendChild(gameOverScreenContainer);
+    gameOverScreenContainer.appendChild(gameOverScreen);
+    gameOverScreen.appendChild(gameOverTitle);
+    gameOverScreen.appendChild(gameOverScore);
+    gameOverScreen.appendChild(gameOverScoreEntry);
+    gameOverTitle.textContent = "Congratulations!"
+    gameOverScore.textContent = "FINAL SCORE:   " + timerCount;
+    gameOverScreen.appendChild(saveInitialsBttn);
+    saveInitialsBttn.textContent = "Submit"
+    gameOverScreen.appendChild(saveInitialsText);
+    saveInitialsText.textContent = "Enter player's initials"
+
+
 }
-*/

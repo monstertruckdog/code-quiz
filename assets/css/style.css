@@ -58,6 +58,18 @@ li {
     margin-top: 32px;
 }
 
+.game-over-screen {
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    right: 40%;
+    transform: translate(0, -50%);
+}
+
+.game-over-screen p {
+    font-size: 10px;
+}
+
 #highscore {
     float: left;
 }
@@ -89,7 +101,7 @@ li {
     text-align: center;
 }
 
-#start-bttn {
+button {
     background-color: var(--nearly_b);
     color: var(--nearly_w);
 }
