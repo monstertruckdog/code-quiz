@@ -34,7 +34,13 @@ var saveInitialsBttn = document.createElement("button");
 var saveInitialsText = document.createElement("p");
 
 // Main Body:  High Scores
-
+var highScoreContainer = document.createElement("div");
+var highScoreScreen = document.createElement("div");
+var highScoreTitle = document.createElement("h3");
+var highScoreListContainer = document.createElement("ul");
+var highScoreList = document.createElement("li");
+var highScoreClearBttn = document.createElement("button");
+var highScoreGoBackBttn = document.createElement("button");
 
 // Set Attributes
 // Main Body:  Quiz Questions
@@ -55,6 +61,16 @@ gameOverScoreEntry.setAttribute("width", "8px");
 saveInitialsBttn.setAttribute("class", "save-initials-bttn");
 saveInitialsBttn.setAttribute("display", "block");
 saveInitialsBttn.setAttribute("style", "display: block");
+
+
+// Main Body:  High Scores
+highScoreContainer.setAttribute("class", "high-score-container");
+highScoreScreen.setAttribute("class", "high-score-screen");
+highScoreTitle.setAttribute("class", "high-score-title");
+highScoreListContainer.setAttribute("class", "high-score-list-ul");
+highScoreList.setAttribute("class", "high-score-list");
+highScoreClearBttn.setAttribute("class", "high-score-clear");
+highScoreGoBackBttn.setAttribute("class", "high-score-go-back");
 
 var timerCount = 75
 head.appendChild(headNav);
